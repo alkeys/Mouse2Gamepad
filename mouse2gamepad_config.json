@@ -1,0 +1,76 @@
+{
+  "bindings": {
+    "A": [
+      "kbd",
+      18
+    ],
+    "B": [
+      "kbd",
+      42
+    ],
+    "X": [
+      "mouse",
+      272
+    ],
+    "Y": [
+      "mouse",
+      275
+    ],
+    "L": [
+      "kbd",
+      33
+    ],
+    "R": null,
+    "ZL": [
+      "mouse",
+      276
+    ],
+    "ZR": [
+      "mouse",
+      273
+    ],
+    "PLUS": [
+      "kbd",
+      20
+    ],
+    "MINUS": [
+      "kbd",
+      34
+    ],
+    "HOME": [
+      "mouse",
+      274
+    ],
+    "L3": null,
+    "R3": null,
+    "LS_UP": [
+      "kbd",
+      17
+    ],
+    "LS_DOWN": [
+      "kbd",
+      31
+    ],
+    "LS_LEFT": [
+      "kbd",
+      30
+    ],
+    "LS_RIGHT": [
+      "kbd",
+      32
+    ],
+    "DPAD_UP": null,
+    "DPAD_DOWN": null,
+    "DPAD_LEFT": null,
+    "DPAD_RIGHT": null
+  },
+  "gyro_sens": 0.06,
+  "stick_sens": 1480.0503355704698,
+  "decay": 0.86,
+  "mode": "both",
+  "hz": 500,
+  "gy_inv_x": false,
+  "gy_inv_y": false,
+  "rs_inv_x": false,
+  "rs_inv_y": false
+}
