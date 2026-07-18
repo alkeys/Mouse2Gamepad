@@ -1,5 +1,13 @@
 # Mouse2Gamepad
 
+[![Captura-de-pantalla-20260718-094648.png](https://i.postimg.cc/q7SnKZMw/Captura-de-pantalla-20260718-094648.png)](https://postimg.cc/rdGKXj4R)
+
+[![Captura-de-pantalla-20260718-094648.png](https://i.postimg.cc/q7SnKZMw/Captura-de-pantalla-20260718-094648.png)](https://postimg.cc/rdGKXj4R)
+
+[![Captura-de-pantalla-20260718-094706.png](https://i.postimg.cc/L8yj9sdn/Captura-de-pantalla-20260718-094706.png)](https://postimg.cc/18q8Ms3Q)
+
+[![Captura-de-pantalla-20260718-094725.png](https://i.postimg.cc/c4SRTjMC/Captura-de-pantalla-20260718-094725.png)](https://postimg.cc/qg16v1FH)
+
 Mouse + Teclado como gamepad virtual con giroscopio simulado (mediante protocolo DSU/cemuhook) para Cemu en Linux. Incluye una interfaz gráfica intuitiva para la asignación de teclas personalizable y configuración en tiempo real.
 
 ## Características
