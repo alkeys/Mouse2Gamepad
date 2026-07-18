@@ -2,7 +2,6 @@
 
 [![Captura-de-pantalla-20260718-094648.png](https://i.postimg.cc/q7SnKZMw/Captura-de-pantalla-20260718-094648.png)](https://postimg.cc/rdGKXj4R)
 
-[![Captura-de-pantalla-20260718-094648.png](https://i.postimg.cc/q7SnKZMw/Captura-de-pantalla-20260718-094648.png)](https://postimg.cc/rdGKXj4R)
 
 [![Captura-de-pantalla-20260718-094706.png](https://i.postimg.cc/L8yj9sdn/Captura-de-pantalla-20260718-094706.png)](https://postimg.cc/18q8Ms3Q)
 
