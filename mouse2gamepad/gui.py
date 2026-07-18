@@ -22,7 +22,7 @@ from mouse2gamepad.bindings import (
     keyname,
 )
 from mouse2gamepad.config import CONFIG_FILE
-from mouse2gamepad.config_validation import validate_params
+from mouse2gamepad.config_validation import parse_binding, validate_params
 from mouse2gamepad.engine import Engine, capture_key_offline
 
 
@@ -553,8 +553,17 @@ class App:
         raw = data.get("bindings", {})
         bindings = dict(DEFAULT_BINDINGS)
         for a, b in raw.items():
-            if a in bindings:
-                bindings[a] = (b[0], int(b[1])) if b else None
+            if a not in bindings:
+                continue
+            if not b:
+                bindings[a] = None
+                continue
+            parsed = parse_binding(b)
+            if parsed is None:
+                print(f"[Mouse2Gamepad] Asignación inválida para «{a}»: {b!r}, "
+                      "conservo la tecla por defecto.", file=sys.stderr)
+                continue
+            bindings[a] = parsed
         self.params["bindings"] = bindings
 
         validated, warnings = validate_params(data, self.params)

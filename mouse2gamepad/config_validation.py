@@ -1,6 +1,12 @@
-"""Validación de los valores numéricos/booleanos cargados desde el JSON de
-configuración. No lanza excepciones: ante un valor con tipo o rango
-inválido, conserva el valor por defecto y lo reporta como advertencia."""
+"""Validación de los valores numéricos/booleanos y de las asignaciones de
+teclas cargados desde el JSON de configuración. No lanza excepciones: ante
+un valor con tipo o rango inválido, conserva el valor por defecto (o descarta
+solo esa asignación) y lo reporta como advertencia."""
+
+try:
+    from evdev import ecodes as _ecodes
+except ImportError:
+    _ecodes = None
 
 MODES = ["gyro", "stick", "both"]
 
@@ -20,6 +26,29 @@ _CHECKS = {
     "rs_inv_x": lambda v: isinstance(v, bool),
     "rs_inv_y": lambda v: isinstance(v, bool),
 }
+
+
+def parse_binding(value):
+    """Valida/normaliza una asignación (src, code) leída del JSON.
+
+    Acepta `code` como entero o, para configs viejas o editadas a mano, como
+    nombre evdev (p. ej. "KEY_E"). Devuelve (src, code:int), o None si el
+    valor está vacío/ausente o es irrecuperable (nunca lanza excepción)."""
+    if not value:
+        return None
+    if not isinstance(value, (list, tuple)) or len(value) != 2:
+        return None
+    src, code = value
+    if src not in ("kbd", "mouse"):
+        return None
+    if isinstance(code, str) and _ecodes is not None:
+        resolved = _ecodes.ecodes.get(code)
+        if resolved is not None:
+            return (src, resolved)
+    try:
+        return (src, int(code))
+    except (TypeError, ValueError):
+        return None
 
 
 def validate_params(data, defaults):

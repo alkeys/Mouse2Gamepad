@@ -1,4 +1,6 @@
-from mouse2gamepad.config_validation import validate_params
+from evdev import ecodes as e
+
+from mouse2gamepad.config_validation import parse_binding, validate_params
 
 DEFAULTS = {
     "gyro_sens": 0.06, "stick_sens": 55.0, "decay": 0.86,
@@ -62,3 +64,32 @@ def test_unknown_keys_are_ignored():
     params, warnings = validate_params({"unknown_field": 123}, DEFAULTS)
     assert params == DEFAULTS
     assert warnings == []
+
+
+def test_parse_binding_empty_or_none_is_unbound():
+    assert parse_binding(None) is None
+    assert parse_binding([]) is None
+    assert parse_binding(False) is None
+
+
+def test_parse_binding_accepts_integer_code():
+    assert parse_binding(["kbd", 18]) == ("kbd", 18)
+
+
+def test_parse_binding_recovers_evdev_key_name():
+    # Config editada a mano con el nombre en vez del código evdev (el crash
+    # original reportado: ValueError al hacer int("KEY_E")).
+    assert parse_binding(["kbd", "KEY_E"]) == ("kbd", e.KEY_E)
+
+
+def test_parse_binding_rejects_unknown_string_code():
+    assert parse_binding(["kbd", "no_existe"]) is None
+
+
+def test_parse_binding_rejects_invalid_src():
+    assert parse_binding(["gamepad", 18]) is None
+
+
+def test_parse_binding_rejects_wrong_shape():
+    assert parse_binding(["kbd", 18, "extra"]) is None
+    assert parse_binding("kbd") is None
