@@ -1,0 +1,44 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar dependencias del sistema (tk)
+        run: sudo apt-get update && sudo apt-get install -y python3-tk python3-venv
+
+      - name: Crear venv e instalar dependencias Python
+        run: |
+          python3 -m venv .venv
+          .venv/bin/pip install --upgrade pip
+          .venv/bin/pip install -r requirements.txt pytest pyinstaller
+
+      - name: Ejecutar tests
+        run: .venv/bin/python -m pytest tests/ -v
+
+      - name: Compilar ejecutable con PyInstaller
+        run: .venv/bin/pyinstaller mouse2gamepad_gui.spec
+
+      - name: Preparar el binario para el release
+        run: |
+          mkdir -p release
+          cp dist/mouse2gamepad_gui "release/mouse2gamepad_gui-${{ github.ref_name }}-linux-x86_64"
+
+      - name: Crear GitHub Release y subir el binario
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ github.ref_name }}" \
+            "release/mouse2gamepad_gui-${{ github.ref_name }}-linux-x86_64" \
+            --title "${{ github.ref_name }}" \
+            --generate-notes

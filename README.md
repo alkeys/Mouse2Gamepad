@@ -82,6 +82,17 @@ pyinstaller mouse2gamepad_gui.spec
 
 El ejecutable queda en `dist/mouse2gamepad_gui`. La configuración se guarda junto al binario real (no en una carpeta temporal), así que persiste entre ejecuciones.
 
+### Publicar una versión (GitHub Release)
+
+Al empujar un tag `vX.Y.Z`, el workflow `.github/workflows/release.yml` corre los tests, compila el ejecutable con PyInstaller y lo publica como GitHub Release automáticamente:
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+El binario queda adjunto en la página del release como `mouse2gamepad_gui-vX.Y.Z-linux-x86_64`.
+
 ## Desarrollo
 
 El código vive en el paquete `mouse2gamepad/` (`dsu.py`, `motion.py`, `config_validation.py`, `bindings.py`, `engine.py`, `gui.py`); `mouse2gamepad_gui.py` es solo el lanzador. Hay pruebas con `pytest` para la lógica que no depende de hardware ni de Tkinter (protocolo DSU, cálculo de gyro/stick, validación de config, bindings):
